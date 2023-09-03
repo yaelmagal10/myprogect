@@ -7,8 +7,8 @@ import socket
 
 def send_data(server_ip, server_port, data):
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client.connect(('0.0.0.0', 8080))
-    client.send("I am CLIENT\n".encode())
+    client.connect((server_port, server_ip))
+    client.send(data.encode())
     from_server = client.recv(4096)
     client.close()
     print (from_server.decode()

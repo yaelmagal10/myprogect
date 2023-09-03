@@ -1,6 +1,6 @@
 import argparse
 import sys
-
+import socket
 
 ###########################################################
 ####################### YOUR CODE #########################
@@ -8,10 +8,12 @@ import sys
 
 
 def send_data(server_ip, server_port, data):
-    '''
-    Send data to server in address (server_ip, server_port).
-    '''
-    pass
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client.connect(('0.0.0.0', 8080))
+    client.send("I am CLIENT\n".encode())
+    from_server = client.recv(4096)
+    client.close()
+    print (from_server.decode()
 
 
 ###########################################################

@@ -1,17 +1,24 @@
+import argparse
+import sys
 import socket
+import struct
+
+def recv_all (sock, bufsize, flags=0):
+  result =b''
+  while (lenght_diff :=bufsize -len(result))>0:
+    result += sock.recv(lenght_diff, flags)
+  return result
+
 def run_server (server_ip, server_port):
   serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   serv.bind((server_ip, server_port))
   serv.listen(5)
   while True:
     conn, addr = serv.accept()
-    from_client = ''
-    while True:
-      data = conn.recv(4096)
-      if not data: break
-      from_client += data.decode('utf8')
-      print (from_client)
-      conn.send("I am SERVER\n".encode())
+    message_len, =  struct.unpack('<I', recv_all(conn, 4))
+    message = recv_all(conn, message_len).decode()
+    print (message)
+    conn.send("I am SERVER\n".encode())
     conn.close()
   print ('client disconnected and shutdown')
 def main():

@@ -1,7 +1,7 @@
 import socket
-def run_server (ip, port):
+def run_server (server_ip, server_port):
   serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-  serv.bind(('0.0.0.0', 8080))
+  serv.bind((server_port, server_ip))
   serv.listen(5)
   while True:
     conn, addr = serv.accept()

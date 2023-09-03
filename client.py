@@ -7,7 +7,7 @@ import socket
 
 def send_data(server_ip, server_port, data):
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client.connect((server_port, server_ip))
+    client.connect((server_ip, server_port))
     client.send(data.encode())
     from_server = client.recv(4096)
     client.close()

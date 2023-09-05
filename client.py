@@ -1,18 +1,18 @@
 import argparse
 import sys
 import socket
-
+import struct
 
 
 
 def send_data(server_ip, server_port, data):
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect((server_ip, server_port))
-    client.send(data.encode())
-    from_server = client.recv(4096)
+    data_len=len(data)
+    data_len=struct.pack('<I', data_len)
+    client.sendall(data_len)
+    client.sendall(data.encode())
     client.close()
-    print (from_server.decode()
-
 
 
 

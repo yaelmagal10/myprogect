@@ -16,7 +16,6 @@ def send_data(server_ip, server_port, data):
 
 
 
-
 def get_args():
     parser = argparse.ArgumentParser(description='Send data to server.')
     parser.add_argument('server_ip', type=str,
